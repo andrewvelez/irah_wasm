@@ -1,0 +1,32 @@
+name: Build package
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.99.0
+          targets: wasm32-unknown-unknown
+          components: rustfmt
+      - run: cargo fmt --check
+      - run: cargo install wasm-pack --version 0.13.1 --locked
+      - run: npm run build
+      - run: npm pack --ignore-scripts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: irah-wasm-npm
+          path: '*.tgz'
+          if-no-files-found: error

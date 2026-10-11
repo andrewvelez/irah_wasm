@@ -1,0 +1,33 @@
+{
+  "name": "@andrewvelez/irah-wasm",
+  "version": "0.1.0",
+  "description": "Browser WebAssembly bindings for Iroh endpoints and QUIC streams",
+  "license": "MIT",
+  "type": "module",
+  "main": "./pkg/irah_wasm.js",
+  "types": "./pkg/irah_wasm.d.ts",
+  "exports": {
+    ".": {
+      "types": "./pkg/irah_wasm.d.ts",
+      "import": "./pkg/irah_wasm.js"
+    },
+    "./wasm": "./pkg/irah_wasm_bg.wasm"
+  },
+  "files": [
+    "pkg/irah_wasm.js",
+    "pkg/irah_wasm_bg.wasm",
+    "pkg/irah_wasm.d.ts",
+    "pkg/irah_wasm_bg.wasm.d.ts"
+  ],
+  "scripts": {
+    "build": "wasm-pack build --target web --out-dir pkg --out-name irah_wasm --no-opt --locked",
+    "prepack": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewvelez/irah_wasm.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -147,3 +147,7 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Rust and generated WebAssembly package
+/target/
+/pkg/
